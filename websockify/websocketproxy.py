@@ -46,8 +46,8 @@ Traffic Legend:
         # for a valid target for it then
         if self.server.target_cfg:
             (self.server.target_host, self.server.target_port) = self.get_target(self.server.target_cfg, self.path)
-		else if self.server.target_api:
-			(self.server.target_host, self.server.target_port) = self.get_target_via_api()
+        else if self.server.target_api:
+            (self.server.target_host, self.server.target_port) = self.get_target_via_api()
 
         # Connect to the target
         if self.server.wrap_cmd:
