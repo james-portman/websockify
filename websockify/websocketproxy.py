@@ -281,8 +281,8 @@ class WebSocketProxy(websocket.WebSocketServer):
             msg = "  - proxying from %s:%s to targets in %s" % (
                 self.listen_host, self.listen_port, self.target_cfg)
         else if self.target_api:
-			msg = "  - proxying from %s:%s to targets (if found) in API" % (
-				self.listen_host, self.listen_port)
+	    msg = "  - proxying from %s:%s to targets (if found) in API" % (
+		self.listen_host, self.listen_port)
         else:
             msg = "  - proxying from %s:%s to %s" % (
                 self.listen_host, self.listen_port, dst_string)
