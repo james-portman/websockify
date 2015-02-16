@@ -11,7 +11,7 @@ as taken from http://docs.python.org/dev/library/ssl.html#certificates
 
 '''
 
-import signal, socket, optparse, time, os, sys, subprocess, logging
+import signal, socket, optparse, time, os, sys, subprocess, logging, urllib2, json
 try:    from socketserver import ForkingMixIn
 except: from SocketServer import ForkingMixIn
 try:    from http.server import HTTPServer
@@ -137,8 +137,7 @@ Traffic Legend:
         try:
             output = urllib2.urlopen("http://localhost/installs/"+token).read()
             decoded = json.loads(output)
-            target = decoded['ip']+":"+decoded['port']
-            return target.split(':')
+            return decoded['ip'],decoded['port']
         except:
             raise self.EClose("Token '%s' not found" % token)
             
