@@ -46,7 +46,7 @@ Traffic Legend:
         # for a valid target for it then
         if self.server.target_cfg:
             (self.server.target_host, self.server.target_port) = self.get_target(self.server.target_cfg, self.path)
-        else if self.server.target_api:
+        elif self.server.target_api:
             (self.server.target_host, self.server.target_port) = self.get_target_via_api()
 
         # Connect to the target
@@ -280,7 +280,7 @@ class WebSocketProxy(websocket.WebSocketServer):
         if self.target_cfg:
             msg = "  - proxying from %s:%s to targets in %s" % (
                 self.listen_host, self.listen_port, self.target_cfg)
-        else if self.target_api:
+        elif self.target_api:
 	    msg = "  - proxying from %s:%s to targets (if found) in API" % (
 		self.listen_host, self.listen_port)
         else:
