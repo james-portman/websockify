@@ -47,7 +47,7 @@ Traffic Legend:
         if self.server.target_cfg:
             (self.server.target_host, self.server.target_port) = self.get_target(self.server.target_cfg, self.path)
         elif self.server.target_api:
-            (self.server.target_host, self.server.target_port) = self.get_target_via_api()
+            (self.server.target_host, self.server.target_port) = self.get_target_via_api(self.path)
 
         # Connect to the target
         if self.server.wrap_cmd:
@@ -119,7 +119,7 @@ Traffic Legend:
         else:
             raise self.EClose("Token '%s' not found" % token)
 
-    def get_target_via_api(self):
+    def get_target_via_api(self,path):
         """
         Parses the path, extracts a token, and looks for a valid
         target for that token in the Installer API. Sets
