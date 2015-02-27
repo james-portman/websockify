@@ -47,7 +47,7 @@ Traffic Legend:
         if self.server.target_cfg:
             (self.server.target_host, self.server.target_port) = self.get_target(self.server.target_cfg, self.path)
         elif self.server.target_api:
-            (self.server.target_host, self.server.target_port) = self.get_target_via_api(self.path)
+            (self.server.target_host, self.server.target_port) = self.get_target_via_api(self.server.target_api, self.path)
 
         # Connect to the target
         if self.server.wrap_cmd:
@@ -119,7 +119,7 @@ Traffic Legend:
         else:
             raise self.EClose("Token '%s' not found" % token)
 
-    def get_target_via_api(self,path):
+    def get_target_via_api(self,path,target_api):
         """
         Parses the path, extracts a token, and looks for a valid
         target for that token in the Installer API. Sets
@@ -135,7 +135,7 @@ Traffic Legend:
 		# installId to be passed in in request/query string
         token = args['token'][0].rstrip('\n')
         try:
-            output = urllib2.urlopen("http://localhost/installs/"+token).read()
+            output = urllib2.urlopen(target_api+token).read()
             decoded = json.loads(output)
             return decoded['ip'],decoded['port']
         except:
@@ -380,9 +380,11 @@ def websockify_init():
     parser.add_option("--prefer-ipv6", "-6",
             action="store_true", dest="source_is_ipv6",
             help="prefer IPv6 when resolving source_addr")
-    parser.add_option("--target-api",
-            action="store_true", dest="target_api",
-            help="Use API to get targets")
+    parser.add_option("--target-api", metavar="FILE",
+            dest="target_api",
+            help="JSON Rest API address to check token, token is appended"
+            "e.g. http://localhost/api/[token]"
+            "API should return ip and port in JSON response")
     parser.add_option("--target-config", metavar="FILE",
             dest="target_cfg",
             help="Configuration file containing valid targets "
