@@ -75,7 +75,7 @@ Traffic Legend:
             if tsock:
                 tsock.shutdown(socket.SHUT_RDWR)
                 tsock.close()
-                if self.verbose: 
+                if self.verbose:
                     self.log_message("%s:%s: Closed target",
                             self.server.target_host, self.server.target_port)
             raise
@@ -119,7 +119,7 @@ Traffic Legend:
         else:
             raise self.EClose("Token '%s' not found" % token)
 
-    def get_target_via_api(self,path,target_api):
+    def get_target_via_api(self,target_api,path):
         """
         Parses the path, extracts a token, and looks for a valid
         target for that token in the Installer API. Sets
@@ -140,7 +140,7 @@ Traffic Legend:
             return decoded['ip'],decoded['port']
         except:
             raise self.EClose("Token '%s' not found" % token)
-            
+
     def do_proxy(self, target):
         """
         Proxy client WebSocket to normal target socket.
@@ -171,7 +171,7 @@ Traffic Legend:
 
                 if closed:
                     # TODO: What about blocking on client socket?
-                    if self.verbose: 
+                    if self.verbose:
                         self.log_message("%s:%s: Client closed connection",
                                 self.server.target_host, self.server.target_port)
                     raise self.CClose(closed['code'], closed['reason'])
@@ -491,8 +491,8 @@ class LibProxyServer(ForkingMixIn, HTTPServer):
 
         if web:
             os.chdir(web)
-            
-        HTTPServer.__init__(self, (listen_host, listen_port), 
+
+        HTTPServer.__init__(self, (listen_host, listen_port),
                             RequestHandlerClass)
 
 
